@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkep4hmgnilfg"]
+
+[sub_resource type="Gradient" id="Gradient_ksqdh"]
+colors = PackedColorArray(0.8, 0.8, 0.8, 1, 0.109804, 0.109804, 0.109804, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cwnlc"]
+gradient = SubResource("Gradient_ksqdh")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4xfa"]
+size = Vector2(12, 200)
+
+[node name="Paddle" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.046875, 200)
+texture = SubResource("GradientTexture1D_cwnlc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_y4xfa")
