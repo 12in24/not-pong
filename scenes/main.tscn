@@ -1,13 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://dby207x68f1po"]
+[gd_scene load_steps=10 format=3 uid="uid://dby207x68f1po"]
 
 [ext_resource type="PackedScene" uid="uid://dkep4hmgnilfg" path="res://scenes/paddle.tscn" id="1_yc5lj"]
 [ext_resource type="PackedScene" uid="uid://qg5srn182dyb" path="res://scenes/ball.tscn" id="2_dwyrx"]
+[ext_resource type="Script" path="res://scenes/score_label.gd" id="3_l6knh"]
+[ext_resource type="Script" path="res://scenes/score_zone.gd" id="3_t27mw"]
+[ext_resource type="Script" path="res://scenes/game_state.gd" id="4_kgien"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udp3b"]
 size = Vector2(1152, 103)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uri7k"]
 size = Vector2(17, 666)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8g2le"]
+font_size = 60
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mnj0b"]
+size = Vector2(137, 784)
 
 [node name="Game" type="Node"]
 
@@ -45,3 +54,28 @@ shape = SubResource("RectangleShape2D_uri7k")
 
 [node name="Ball" parent="." instance=ExtResource("2_dwyrx")]
 position = Vector2(676, 309)
+
+[node name="ScoreLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 1070.0
+offset_top = 24.0
+offset_right = 1140.0
+offset_bottom = 118.0
+text = "0"
+label_settings = SubResource("LabelSettings_8g2le")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_l6knh")
+
+[node name="ScoreZone" type="Area2D" parent="."]
+script = ExtResource("3_t27mw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreZone"]
+position = Vector2(1222.5, 317)
+shape = SubResource("RectangleShape2D_mnj0b")
+
+[node name="GameState" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_kgien")
+
+[connection signal="body_entered" from="ScoreZone" to="ScoreZone" method="_on_body_entered"]
