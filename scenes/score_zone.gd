@@ -6,7 +6,5 @@ extends Area2D
 
 
 func _on_body_entered(body: Node2D):
-	print('entered')
-	print(body.name)
 	if body.name == 'Ball':
 		game_state.score += 1
