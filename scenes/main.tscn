@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dby207x68f1po"]
+[gd_scene load_steps=11 format=3 uid="uid://dby207x68f1po"]
 
 [ext_resource type="PackedScene" uid="uid://dkep4hmgnilfg" path="res://scenes/paddle.tscn" id="1_yc5lj"]
 [ext_resource type="PackedScene" uid="uid://qg5srn182dyb" path="res://scenes/ball.tscn" id="2_dwyrx"]
 [ext_resource type="Script" path="res://scenes/score_label.gd" id="3_l6knh"]
 [ext_resource type="Script" path="res://scenes/score_zone.gd" id="3_t27mw"]
 [ext_resource type="Script" path="res://scenes/game_state.gd" id="4_kgien"]
+[ext_resource type="Script" path="res://scenes/spawner.gd" id="6_my7q1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udp3b"]
 size = Vector2(1152, 103)
@@ -16,7 +17,7 @@ size = Vector2(17, 666)
 font_size = 60
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnj0b"]
-size = Vector2(137, 784)
+size = Vector2(121, 784)
 
 [node name="Game" type="Node"]
 
@@ -52,9 +53,6 @@ shape = SubResource("RectangleShape2D_udp3b")
 position = Vector2(50.5, 326)
 shape = SubResource("RectangleShape2D_uri7k")
 
-[node name="Ball" parent="." instance=ExtResource("2_dwyrx")]
-position = Vector2(676, 309)
-
 [node name="ScoreLabel" type="Label" parent="."]
 unique_name_in_owner = true
 offset_left = 1070.0
@@ -71,11 +69,22 @@ script = ExtResource("3_l6knh")
 script = ExtResource("3_t27mw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreZone"]
-position = Vector2(1222.5, 317)
+position = Vector2(1230.5, 317)
 shape = SubResource("RectangleShape2D_mnj0b")
 
 [node name="GameState" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_kgien")
 
+[node name="Spawner" type="Marker2D" parent="."]
+position = Vector2(601, 323)
+script = ExtResource("6_my7q1")
+ball_scene = ExtResource("2_dwyrx")
+
+[node name="Timer" type="Timer" parent="Spawner"]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
 [connection signal="body_entered" from="ScoreZone" to="ScoreZone" method="_on_body_entered"]
+[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
