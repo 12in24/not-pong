@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://qg5srn182dyb" path="res://scenes/ball.tscn" id="2_dwyrx"]
 [ext_resource type="Script" path="res://scenes/score_label.gd" id="3_l6knh"]
 [ext_resource type="Script" path="res://scenes/score_zone.gd" id="3_t27mw"]
-[ext_resource type="Script" path="res://scenes/game_state.gd" id="4_kgien"]
+[ext_resource type="Script" path="res://scenes/game_manager.gd" id="4_kgien"]
 [ext_resource type="Script" path="res://scenes/spawner.gd" id="6_my7q1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udp3b"]
@@ -18,6 +18,10 @@ font_size = 60
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnj0b"]
 size = Vector2(121, 784)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qxf5m"]
+font_size = 60
+font_color = Color(0.815686, 0.227451, 0.541176, 1)
 
 [node name="Game" type="Node"]
 
@@ -72,11 +76,12 @@ script = ExtResource("3_t27mw")
 position = Vector2(1230.5, 317)
 shape = SubResource("RectangleShape2D_mnj0b")
 
-[node name="GameState" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_kgien")
 
 [node name="Spawner" type="Marker2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(601, 323)
 script = ExtResource("6_my7q1")
 ball_scene = ExtResource("2_dwyrx")
@@ -86,5 +91,17 @@ unique_name_in_owner = true
 wait_time = 3.0
 one_shot = true
 
+[node name="GameOverLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 433.0
+offset_top = 90.0
+offset_right = 725.0
+offset_bottom = 195.0
+text = "Game over"
+label_settings = SubResource("LabelSettings_qxf5m")
+horizontal_alignment = 1
+
 [connection signal="body_entered" from="ScoreZone" to="ScoreZone" method="_on_body_entered"]
+[connection signal="ball_died" from="Spawner" to="GameManager" method="_on_spawner_ball_died"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]

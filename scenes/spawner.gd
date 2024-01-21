@@ -5,15 +5,15 @@ extends Marker2D
 
 @onready var timer = %Timer
 
+signal ball_died()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	timer.start()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func spawn():
+	timer.start()
 
 
 func _on_timer_timeout():
@@ -24,4 +24,4 @@ func _on_timer_timeout():
 
 
 func _on_ball_died():
-	timer.start()
+	ball_died.emit()
