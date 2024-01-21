@@ -10,9 +10,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udp3b"]
 size = Vector2(1152, 103)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uri7k"]
-size = Vector2(17, 666)
-
 [sub_resource type="LabelSettings" id="LabelSettings_8g2le"]
 font_size = 60
 
@@ -34,8 +31,9 @@ grow_vertical = 2
 color = Color(0.105882, 0.105882, 0.105882, 1)
 metadata/_edit_lock_ = true
 
-[node name="Paddle" parent="." instance=ExtResource("1_yc5lj")]
+[node name="Paddle2" parent="." instance=ExtResource("1_yc5lj")]
 position = Vector2(1050, 325)
+player = 2
 
 [node name="BoundingWalls" type="Node2D" parent="."]
 
@@ -50,12 +48,6 @@ shape = SubResource("RectangleShape2D_udp3b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoundingWalls/BottomWall"]
 position = Vector2(576, 699.5)
 shape = SubResource("RectangleShape2D_udp3b")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="BoundingWalls"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundingWalls/StaticBody2D"]
-position = Vector2(50.5, 326)
-shape = SubResource("RectangleShape2D_uri7k")
 
 [node name="ScoreLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -101,6 +93,10 @@ offset_bottom = 195.0
 text = "Game over"
 label_settings = SubResource("LabelSettings_qxf5m")
 horizontal_alignment = 1
+
+[node name="Paddle1" parent="." instance=ExtResource("1_yc5lj")]
+position = Vector2(100, 325)
+rotation = 3.14159
 
 [connection signal="body_entered" from="ScoreZone" to="ScoreZone" method="_on_body_entered"]
 [connection signal="ball_died" from="Spawner" to="GameManager" method="_on_spawner_ball_died"]
