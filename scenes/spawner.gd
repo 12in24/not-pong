@@ -5,7 +5,7 @@ extends Marker2D
 
 @onready var timer = %Timer
 
-signal ball_died()
+signal ball_died(zone: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,5 +23,5 @@ func _on_timer_timeout():
 	self.add_sibling(new_ball)
 
 
-func _on_ball_died():
-	ball_died.emit()
+func _on_ball_died(zone: int):
+	ball_died.emit(zone)

@@ -2,8 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://dkep4hmgnilfg" path="res://scenes/paddle.tscn" id="1_yc5lj"]
 [ext_resource type="PackedScene" uid="uid://qg5srn182dyb" path="res://scenes/ball.tscn" id="2_dwyrx"]
+[ext_resource type="Script" path="res://scenes/score_label_2.gd" id="3_7evft"]
+[ext_resource type="PackedScene" uid="uid://cr0vwtqaau1xo" path="res://scenes/score_zone.tscn" id="3_gh87q"]
 [ext_resource type="Script" path="res://scenes/score_label.gd" id="3_l6knh"]
-[ext_resource type="Script" path="res://scenes/score_zone.gd" id="3_t27mw"]
 [ext_resource type="Script" path="res://scenes/game_manager.gd" id="4_kgien"]
 [ext_resource type="Script" path="res://scenes/spawner.gd" id="6_my7q1"]
 
@@ -12,9 +13,6 @@ size = Vector2(1152, 103)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8g2le"]
 font_size = 60
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mnj0b"]
-size = Vector2(121, 784)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qxf5m"]
 font_size = 60
@@ -30,6 +28,10 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.105882, 0.105882, 0.105882, 1)
 metadata/_edit_lock_ = true
+
+[node name="Paddle1" parent="." instance=ExtResource("1_yc5lj")]
+position = Vector2(100, 325)
+rotation = -3.14159
 
 [node name="Paddle2" parent="." instance=ExtResource("1_yc5lj")]
 position = Vector2(1050, 325)
@@ -49,7 +51,19 @@ shape = SubResource("RectangleShape2D_udp3b")
 position = Vector2(576, 699.5)
 shape = SubResource("RectangleShape2D_udp3b")
 
-[node name="ScoreLabel" type="Label" parent="."]
+[node name="ScoreLabel1" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 12.0
+offset_top = 24.0
+offset_right = 82.0
+offset_bottom = 118.0
+text = "0"
+label_settings = SubResource("LabelSettings_8g2le")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_l6knh")
+
+[node name="ScoreLabel2" type="Label" parent="."]
 unique_name_in_owner = true
 offset_left = 1070.0
 offset_top = 24.0
@@ -59,14 +73,14 @@ text = "0"
 label_settings = SubResource("LabelSettings_8g2le")
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_l6knh")
+script = ExtResource("3_7evft")
 
-[node name="ScoreZone" type="Area2D" parent="."]
-script = ExtResource("3_t27mw")
+[node name="ScoreZone1" parent="." instance=ExtResource("3_gh87q")]
+position = Vector2(1232, 320)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreZone"]
-position = Vector2(1230.5, 317)
-shape = SubResource("RectangleShape2D_mnj0b")
+[node name="ScoreZone2" parent="." instance=ExtResource("3_gh87q")]
+position = Vector2(-80, 320)
+zone = 2
 
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
@@ -80,24 +94,26 @@ ball_scene = ExtResource("2_dwyrx")
 
 [node name="Timer" type="Timer" parent="Spawner"]
 unique_name_in_owner = true
-wait_time = 3.0
 one_shot = true
 
 [node name="GameOverLabel" type="Label" parent="."]
 unique_name_in_owner = true
 visible = false
-offset_left = 433.0
-offset_top = 90.0
-offset_right = 725.0
-offset_bottom = 195.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -158.5
+offset_top = -52.5
+offset_right = 158.5
+offset_bottom = 52.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 text = "Game over"
 label_settings = SubResource("LabelSettings_qxf5m")
 horizontal_alignment = 1
 
-[node name="Paddle1" parent="." instance=ExtResource("1_yc5lj")]
-position = Vector2(100, 325)
-rotation = 3.14159
-
-[connection signal="body_entered" from="ScoreZone" to="ScoreZone" method="_on_body_entered"]
 [connection signal="ball_died" from="Spawner" to="GameManager" method="_on_spawner_ball_died"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
