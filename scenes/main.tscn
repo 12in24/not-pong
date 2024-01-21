@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dby207x68f1po"]
+[gd_scene load_steps=12 format=3 uid="uid://dby207x68f1po"]
 
 [ext_resource type="PackedScene" uid="uid://dkep4hmgnilfg" path="res://scenes/paddle.tscn" id="1_yc5lj"]
 [ext_resource type="PackedScene" uid="uid://qg5srn182dyb" path="res://scenes/ball.tscn" id="2_dwyrx"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/score_label.gd" id="3_l6knh"]
 [ext_resource type="Script" path="res://scenes/game_manager.gd" id="4_kgien"]
 [ext_resource type="Script" path="res://scenes/spawner.gd" id="6_my7q1"]
+[ext_resource type="Script" path="res://scenes/new_game_button.gd" id="8_n6r7v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udp3b"]
 size = Vector2(1152, 103)
@@ -115,5 +116,17 @@ text = "Game over"
 label_settings = SubResource("LabelSettings_qxf5m")
 horizontal_alignment = 1
 
+[node name="NewGameButton" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 515.0
+offset_top = 423.0
+offset_right = 687.0
+offset_bottom = 483.0
+theme_override_font_sizes/font_size = 30
+text = "Restart"
+script = ExtResource("8_n6r7v")
+
 [connection signal="ball_died" from="Spawner" to="GameManager" method="_on_spawner_ball_died"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
+[connection signal="button_up" from="NewGameButton" to="NewGameButton" method="_on_button_up"]
