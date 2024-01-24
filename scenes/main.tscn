@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dby207x68f1po"]
+[gd_scene load_steps=14 format=3 uid="uid://dby207x68f1po"]
 
 [ext_resource type="PackedScene" uid="uid://dkep4hmgnilfg" path="res://scenes/paddle.tscn" id="1_yc5lj"]
 [ext_resource type="PackedScene" uid="uid://qg5srn182dyb" path="res://scenes/ball.tscn" id="2_dwyrx"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scenes/spawner.gd" id="6_my7q1"]
 [ext_resource type="Theme" uid="uid://cg6woea3pfq7x" path="res://themes/standard_button.tres" id="8_4dpo4"]
 [ext_resource type="Script" path="res://scenes/new_game_button.gd" id="8_n6r7v"]
+[ext_resource type="Script" path="res://scenes/quit_button.gd" id="10_q2yyk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udp3b"]
 size = Vector2(1152, 103)
@@ -106,9 +107,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -158.5
+offset_left = -150.5
 offset_top = -52.5
-offset_right = 158.5
+offset_right = 166.5
 offset_bottom = 52.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -120,15 +121,28 @@ horizontal_alignment = 1
 [node name="NewGameButton" type="Button" parent="."]
 unique_name_in_owner = true
 visible = false
-offset_left = 515.0
+offset_left = 410.0
 offset_top = 423.0
-offset_right = 687.0
+offset_right = 582.0
 offset_bottom = 483.0
 theme = ExtResource("8_4dpo4")
 theme_override_font_sizes/font_size = 30
 text = "Restart"
 script = ExtResource("8_n6r7v")
 
+[node name="QuitButton" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 610.0
+offset_top = 423.0
+offset_right = 782.0
+offset_bottom = 483.0
+theme = ExtResource("8_4dpo4")
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+script = ExtResource("10_q2yyk")
+
 [connection signal="ball_died" from="Spawner" to="GameManager" method="_on_spawner_ball_died"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
 [connection signal="button_up" from="NewGameButton" to="NewGameButton" method="_on_button_up"]
+[connection signal="pressed" from="QuitButton" to="QuitButton" method="_on_pressed"]

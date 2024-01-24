@@ -6,6 +6,7 @@ var player_2_score: int = 0
 @onready var spawner = %Spawner
 @onready var game_over_label = %GameOverLabel
 @onready var new_game_button = %NewGameButton
+@onready var quit_button = %QuitButton
 
 
 func _on_spawner_ball_died(zone: int):
@@ -26,6 +27,7 @@ func end_game(text: String):
 	game_over_label.text = text
 	game_over_label.visible = true
 	new_game_button.visible = true
+	quit_button.visible = true
 
 
 func reset():
@@ -34,5 +36,6 @@ func reset():
 	
 	game_over_label.visible = false
 	new_game_button.visible = false
+	quit_button.visible = false
 	
 	spawner.spawn()
