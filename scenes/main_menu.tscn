@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cc0s4x3cnq7cv"]
+[gd_scene load_steps=5 format=3 uid="uid://cc0s4x3cnq7cv"]
 
 [ext_resource type="Theme" uid="uid://cg6woea3pfq7x" path="res://themes/standard_button.tres" id="1_ak0ya"]
+[ext_resource type="Script" path="res://scenes/start_game_button.gd" id="2_37ani"]
+[ext_resource type="PackedScene" uid="uid://dby207x68f1po" path="res://scenes/main.tscn" id="3_vsl8l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uofg3"]
 font_size = 120
@@ -34,6 +36,8 @@ offset_bottom = 457.0
 focus_neighbor_right = NodePath("../QuitButton")
 theme = ExtResource("1_ak0ya")
 text = "Start Game"
+script = ExtResource("2_37ani")
+game_scene = ExtResource("3_vsl8l")
 
 [node name="QuitButton" type="Button" parent="."]
 offset_left = 630.0
@@ -43,3 +47,5 @@ offset_bottom = 457.0
 focus_neighbor_left = NodePath("../StartGameButton")
 theme = ExtResource("1_ak0ya")
 text = "Quit"
+
+[connection signal="pressed" from="StartGameButton" to="StartGameButton" method="_on_pressed"]
