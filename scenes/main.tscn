@@ -143,6 +143,11 @@ theme_override_font_sizes/font_size = 30
 text = "Quit"
 script = ExtResource("10_q2yyk")
 
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(0, -84)
+rotation = -0.570723
+shadow_enabled = true
+
 [connection signal="ball_died" from="Spawner" to="GameManager" method="_on_spawner_ball_died"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
 [connection signal="button_up" from="NewGameButton" to="NewGameButton" method="_on_button_up"]

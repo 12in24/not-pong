@@ -11,6 +11,9 @@ gradient = SubResource("Gradient_ksqdh")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4xfa"]
 size = Vector2(12, 200)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_guiux"]
+polygon = PackedVector2Array(-6, -100, -6, 100, 6, 100, 6, -100)
+
 [node name="PaddleSprite" type="CharacterBody2D"]
 script = ExtResource("1_u5b2r")
 
@@ -20,3 +23,6 @@ texture = SubResource("GradientTexture1D_cwnlc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_y4xfa")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_guiux")
