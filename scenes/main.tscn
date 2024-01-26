@@ -38,6 +38,7 @@ rotation = -3.14159
 
 [node name="Paddle2" parent="." instance=ExtResource("1_yc5lj")]
 position = Vector2(1050, 325)
+rotation = 6.28319
 player = 2
 
 [node name="BoundingWalls" type="Node2D" parent="."]

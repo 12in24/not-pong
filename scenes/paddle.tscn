@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkep4hmgnilfg"]
+[gd_scene load_steps=6 format=3 uid="uid://dkep4hmgnilfg"]
 
 [ext_resource type="Script" path="res://scenes/paddle_sprite.gd" id="1_u5b2r"]
 
