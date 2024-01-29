@@ -41,4 +41,3 @@ func _physics_process(delta):
 		self.rotation += OMEGA * rotation_dir * delta
 
 	move_and_collide(delta * velocity)
-

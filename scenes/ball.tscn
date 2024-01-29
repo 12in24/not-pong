@@ -10,17 +10,26 @@ script/source = "extends CharacterBody2D
 
 signal died(zone: int)
 
+var last_collider_id: int
+
 func _ready():
 	velocity = initial_direction * speed
 
 
 func _physics_process(delta):
 	var collision = move_and_collide(delta * velocity)
-	if (collision):
-		velocity = velocity.bounce(collision.get_normal())
-		var collider = collision.get_collider()
-		if \"velocity\" in collider:
-			velocity += collider.velocity
+	if (!collision):
+		return
+
+	var collider = collision.get_collider()
+	if (last_collider_id == collider.get_instance_id()):
+		return
+
+	last_collider_id = collider.get_instance_id()
+	velocity = velocity.bounce(collision.get_normal())
+
+	if \"velocity\" in collider:
+		velocity += collider.velocity
 
 
 func die(zone: int):
