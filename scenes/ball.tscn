@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://qg5srn182dyb"]
+[gd_scene load_steps=11 format=3 uid="uid://qg5srn182dyb"]
 
 [ext_resource type="Texture2D" uid="uid://ccratq0nne2sh" path="res://assets/grey-circle-th.png" id="1_wk5og"]
 
@@ -7,6 +7,8 @@ script/source = "extends CharacterBody2D
 
 @export var speed: float = 500.0
 @export var initial_direction := Vector2(1, 0)
+
+@onready var collision_particle_generator = %CollisionParticleGenerator
 
 signal died(zone: int)
 
@@ -17,6 +19,10 @@ func _ready():
 
 
 func _physics_process(delta):
+	self._process_collisions(delta)
+
+
+func _process_collisions(delta):
 	var collision = move_and_collide(delta * velocity)
 	if (!collision):
 		return
@@ -30,6 +36,13 @@ func _physics_process(delta):
 
 	if \"velocity\" in collider:
 		velocity += collider.velocity
+
+	self._generate_particles()
+
+
+func _generate_particles():
+	collision_particle_generator.restart()
+	collision_particle_generator.emitting = true
 
 
 func die(zone: int):
@@ -45,6 +58,33 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_75a5k"]
 gradient = SubResource("Gradient_xs1ww")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_bnyv7"]
+_data = [Vector2(0, 1), 0.0, 0.00999666, 0, 0, Vector2(0.791391, 0.592142), -1.57418, -1.57418, 0, 0, Vector2(1, 0), -2.39871, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8mihw"]
+curve = SubResource("Curve_bnyv7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w4atd"]
+lifetime_randomness = 0.23
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 84.26
+initial_velocity_max = 174.16
+gravity = Vector3(0, 0, 0)
+damping_min = 38.203
+damping_max = 38.203
+alpha_curve = SubResource("CurveTexture_8mihw")
+
+[sub_resource type="Gradient" id="Gradient_vycp7"]
+offsets = PackedFloat32Array(0, 0.685065)
+colors = PackedColorArray(3.17663e-06, 0.646956, 0.647017, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h0x7h"]
+gradient = SubResource("Gradient_vycp7")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
@@ -64,3 +104,12 @@ shape = SubResource("CircleShape2D_pppfi")
 scale = Vector2(2.875, 2.875)
 color = Color(0, 0.647059, 0.647059, 1)
 texture = SubResource("GradientTexture2D_75a5k")
+
+[node name="CollisionParticleGenerator" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_w4atd")
+texture = SubResource("GradientTexture2D_h0x7h")
+one_shot = true
+explosiveness = 0.97
