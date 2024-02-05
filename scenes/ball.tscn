@@ -112,4 +112,4 @@ amount = 12
 process_material = SubResource("ParticleProcessMaterial_w4atd")
 texture = SubResource("GradientTexture2D_h0x7h")
 one_shot = true
-explosiveness = 0.97
+explosiveness = 1.0
